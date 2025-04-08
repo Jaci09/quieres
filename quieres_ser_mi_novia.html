@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffe6ec;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 80px;
+      font-size: 3em;
+      color: #d6336c;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .buttons {
+      margin-top: 40px;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background-color: #ff5e99;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      background-color: #ff2e7c;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #444;
+      position: absolute;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      font-size: 1.5em;
+      color: #d6336c;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Petal effect */
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #ff5e99 20%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¿Quieres ser mi novia? 🌹</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Sí 💖</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+
+  <div class="message hidden" id="message">
+    ¡Yay! ¡Sabía que dirías que sí! 💖<br>
+    Estoy muy feliz de comenzar esta historia contigo.<br>
+    <strong>Con cariño, tuyo por siempre... mi amor 💌</strong>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('message');
+
+    yesBtn.addEventListener('click', () => {
+      document.querySelector('.buttons').classList.add('hidden');
+      message.classList.remove('hidden');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const distance = Math.hypot(btnRect.x - x, btnRect.y - y);
+
+      if (distance < 120) {
+        const offsetX = (Math.random() - 0.5) * 300;
+        const offsetY = (Math.random() - 0.5) * 300;
+        noBtn.style.left = `${Math.min(window.innerWidth - 100, Math.max(0, btnRect.x + offsetX))}px`;
+        noBtn.style.top = `${Math.min(window.innerHeight - 50, Math.max(0, btnRect.y + offsetY))}px`;
+      }
+    });
+
+    // Generate falling petals
+    for (let i = 0; i < 30; i++) {
+      let petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      petal.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(petal);
+    }
+  </script>
+
+</body>
+</html>
